@@ -1,0 +1,43 @@
+.checkbox-wrapper{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+
+    cursor:pointer;
+
+    user-select:none;
+
+}
+
+.checkbox-wrapper input{
+
+    width:18px;
+
+    height:18px;
+
+    accent-color:var(--dark-yellow);
+
+    cursor:pointer;
+
+}
+
+.checkbox-text{
+
+    font-size:15px;
+
+    color:#444;
+
+}
+
+@media(max-width:768px){
+
+.checkbox-text{
+
+font-size:14px;
+
+}
+
+}

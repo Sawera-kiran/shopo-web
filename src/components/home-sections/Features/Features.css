@@ -1,0 +1,47 @@
+.features {
+  padding: 60px 0;
+}
+
+.features-wrapper {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 25px;
+
+  background: #fff;
+  padding: 35px;
+}
+
+.feature-card {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.feature-icon {
+  font-size: 42px;
+  color: #f4b223;
+}
+
+.feature-content h3 {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.feature-content p {
+  color: #777;
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+@media (max-width: 992px) {
+  .features-wrapper {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 576px) {
+  .features-wrapper {
+    grid-template-columns: 1fr;
+  }
+}

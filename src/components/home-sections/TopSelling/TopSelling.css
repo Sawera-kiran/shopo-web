@@ -1,0 +1,15 @@
+.top-selling {
+  margin: 90px 0;
+}
+
+.top-selling-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 30px;
+}
+
+@media (max-width: 992px) {
+  .top-selling-grid {
+    grid-template-columns: 1fr;
+  }
+}

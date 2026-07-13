@@ -1,0 +1,48 @@
+.offer-banner {
+  margin: 90px 0;
+}
+
+.offer-banner-link {
+  position: relative;
+
+  display: block;
+
+  overflow: hidden;
+
+  text-decoration: none;
+}
+
+.offer-banner-link img {
+  width: 100%;
+
+  display: block;
+
+  transition: 0.45s;
+}
+
+.offer-banner-link:hover img {
+  transform: scale(1.05);
+}
+
+@keyframes arrowMove {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(5px);
+  }
+}
+
+@media (max-width: 992px) {
+  .offer-content {
+    left: 40px;
+  }
+
+  .offer-content h2 {
+    font-size: 36px;
+
+    max-width: 350px;
+  }
+}
+

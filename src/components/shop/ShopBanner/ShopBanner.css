@@ -1,0 +1,25 @@
+.shop-banner{
+
+    grid-column:1/-1;
+
+    margin:20px 0;
+
+}
+
+.shop-banner a{
+
+    display:block;
+
+    overflow:hidden;
+
+}
+
+.shop-banner img{
+
+    width:100%;
+
+    display:block;
+
+
+}
+

@@ -1,0 +1,114 @@
+body{
+     font-family:"Inter",sans-serif;
+}
+
+.showcase-banner {
+  width: 270px;
+  min-height: 520px;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.showcase-tag {
+  font-size: 90px;
+  opacity: .08;
+  font-weight: 700;
+  writing-mode: vertical-rl;
+  position: absolute;
+  right: 10px;
+  top: 20px;
+}
+
+.showcase-content{
+  position:relative;
+}
+
+.showcase-content h3{
+  font-size:28px;
+  margin-bottom:20px;
+}
+
+.showcase-content ul{
+  list-style:none;
+  padding:0;
+  margin:0 0 25px;
+}
+
+.showcase-content li{
+  color:#666;
+  margin-bottom:8px;
+
+}
+
+.showcase-content a{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  color:#111;
+  font-weight:600;
+  text-decoration:none;
+  font-size: 19px;
+}
+
+.showcase-image{
+  display:flex;
+  justify-content:center;
+}
+
+.showcase-image img{
+  width:100%;
+  object-fit:contain;
+}
+
+
+.showcase-content ul {
+  list-style: none;
+  padding: 0;
+  margin: 20px 0;
+}
+
+.showcase-content li {
+  margin-bottom: 10px;
+}
+
+.showcase-content button {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: #666;
+  font-size: 20px;
+  transition: .3s;
+   font-family:"Inter",sans-serif;
+}
+
+.active-category {
+  color: #111 !important;
+  font-weight: 700;
+}
+
+.shop-now-btn{
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    text-decoration: none;
+    color: #111;
+    font-weight: 600;
+}
+
+.shop-now-btn::after{
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -4px;
+    width: 0;
+    height: 2.5px;
+    background: var(--dark-yellow);
+    transition: width .20s ease;
+}
+
+.shop-now-btn:hover::after{
+    width: 100%;
+}

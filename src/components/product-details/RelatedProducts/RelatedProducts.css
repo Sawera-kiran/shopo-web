@@ -1,0 +1,52 @@
+.related-products {
+  margin-top: 90px;
+  border-top: 1px solid #eee;
+}
+
+.related-products-title {
+  font-size: 34px;
+  font-weight: 700;
+  color: #222;
+  margin-bottom: 45px;
+  text-align: left;
+  padding-top: 40px;
+}
+
+.related-products-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 30px;
+}
+
+
+
+@media (max-width: 1200px) {
+  .related-products-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .related-products {
+    margin-top: 70px;
+  }
+
+  .related-products-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+
+  .related-products-title {
+    font-size: 28px;
+  }
+}
+
+@media (max-width: 576px) {
+  .related-products-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .related-products-title {
+    font-size: 24px;
+  }
+}

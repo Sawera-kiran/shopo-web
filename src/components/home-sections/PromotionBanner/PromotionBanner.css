@@ -1,0 +1,139 @@
+.promotion-banner {
+  margin: 90px 0;
+}
+
+.promotion-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 30px;
+}
+
+.promotion-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  overflow: hidden;
+
+  padding: 50px 45px;
+
+  min-height: 320px;
+}
+
+.promotion-content {
+  max-width: 270px;
+}
+
+.promotion-content span {
+  font-size: 14px;
+  font-weight: 700;
+  color: #444;
+
+  letter-spacing: 1px;
+}
+
+.promotion-content h2 {
+  margin: 20px 0 45px;
+
+  font-size: 45px;
+  line-height: 1.2;
+
+  color: #222;
+}
+
+.promotion-content a {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: "inter";
+  background: none;
+  border: none;
+
+  cursor: pointer;
+
+  font-size: 17px;
+  font-weight: 600;
+
+  position: relative;
+}
+
+.promotion-content ::after {
+  content: "";
+
+  position: absolute;
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -8px;
+
+  width: 0;
+  height: 3px;
+
+  background: #f5b335;
+
+  transition: 0.35s;
+}
+
+.promotion-content a svg {
+  font-size: 20px;
+
+  animation: arrowMove 1s infinite alternate;
+}
+
+.promotion-image {
+  flex: 1;
+
+  display: flex;
+  justify-content: flex-end;
+}
+
+.promotion-image img {
+  width: 340px;
+
+  transition: 0.4s;
+}
+
+.promotion-card:hover img {
+  transform: scale(1.06);
+}
+
+@keyframes arrowMove {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(5px);
+  }
+}
+
+@media (max-width: 992px) {
+  .promotion-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .promotion-card {
+    flex-direction: column;
+    text-align: center;
+
+    gap: 40px;
+  }
+
+  .promotion-content {
+    max-width: 100%;
+  }
+
+  .promotion-content h2 {
+    font-size: 38px;
+  }
+
+  .promotion-image {
+    justify-content: center;
+  }
+
+  .promotion-image img {
+    width: 260px;
+  }
+}

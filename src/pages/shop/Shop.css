@@ -1,0 +1,35 @@
+.shop-page {
+    margin: 0px 0 90px;
+    background-color: #f8f8f8;
+    padding: 70px 0px;
+    padding-bottom: 0px !important;
+}
+
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  margin-bottom: 40px;
+
+  font-size: 15px;
+  color: #777;
+}
+
+.shop-layout {
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  gap: 35px;
+}
+
+.shop-content {
+  width: 100%;
+}
+
+@media (max-width: 992px) {
+
+  .shop-layout {
+    grid-template-columns: 1fr;
+  }
+
+}

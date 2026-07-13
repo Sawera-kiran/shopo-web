@@ -1,0 +1,188 @@
+.top-selling-card {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+
+  background: #fff;
+  border: 1px solid #eee;
+
+  padding: 30px;
+
+  overflow: hidden;
+  position: relative;
+
+  transition: 0.35s;
+}
+
+.top-selling-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, .08);
+}
+
+
+
+.top-selling-image {
+  width: 220px;
+  flex-shrink: 0;
+}
+
+.top-selling-image img {
+  width: 100%;
+  display: block;
+  transition: .35s;
+}
+
+.top-selling-card:hover .top-selling-image img {
+  transform: scale(1.05);
+}
+
+
+.top-selling-content {
+  flex: 1;
+  position: relative;
+}
+
+.stars {
+  display: flex;
+  gap: 3px;
+  color: #ffb400;
+  font-size: 18px;
+  margin-bottom: 12px;
+}
+
+.product-title {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+
+  overflow: hidden;
+
+  text-decoration: none;
+
+  color: #222;
+
+  font-size: 23px;
+  font-weight: 600;
+  line-height: 1.45;
+
+  margin-bottom: 18px;
+
+  transition: .3s;
+}
+
+.product-title:hover {
+  color: var(--dark-yellow);
+}
+
+.price {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  margin-bottom: 25px;
+}
+
+.old-price {
+  color: #888;
+  text-decoration: line-through;
+  font-size: 22px;
+}
+
+.new-price {
+  color: #ef233c;
+  font-size: 30px;
+  font-weight: 700;
+}
+
+
+
+.cart-btn-selling {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+
+  padding: 14px 30px;
+
+  border: none;
+
+  background: var(--dark-yellow);
+  color: #111;
+  cursor: pointer;
+
+  font-size: 16px;
+  font-weight: 600;
+
+  transition: .35s;
+}
+
+
+
+
+
+.top-selling-icons {
+  position: absolute;
+
+  top: 18px;
+  right: -70px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  transition: .35s;
+}
+
+.top-selling-card:hover .top-selling-icons {
+  right: 15px;
+}
+
+.top-selling-icons button {
+  width: 42px;
+  height: 42px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  border: none;
+
+  background: #fff;
+
+  cursor: pointer;
+
+  font-size: 18px;
+
+  box-shadow: 0 5px 20px rgba(0,0,0,.08);
+
+  transition: .3s;
+}
+
+.top-selling-icons button:hover {
+  background: var(--dark-yellow);
+  color: #fff;
+}
+
+
+
+@media(max-width:992px){
+
+.top-selling-card{
+    flex-direction:column;
+    text-align:center;
+}
+
+.top-selling-image{
+    width:180px;
+}
+
+.price{
+    justify-content:center;
+}
+
+.top-selling-icons{
+    position:static;
+    flex-direction:row;
+    justify-content:center;
+    margin-bottom:20px;
+}
+
+}
