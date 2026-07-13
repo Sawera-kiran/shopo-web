@@ -1,5 +1,9 @@
 import "./ShopProducts.css";
-import React from "react";
+
+import { Fragment, useMemo } from "react";
+
+import { useSearch } from "../../../context/SearchContext/SearchContext";
+import searchProducts from "../../../utils/searchProducts";
 import ProductCard from "../../product-card/ProductCard";
 import ShopBanner from "../ShopBanner/ShopBanner";
 
@@ -10,48 +14,66 @@ function ShopProducts({
   selectedBrand,
   priceRange,
 }) {
-  let filteredProducts = [...products];
+  const { searchTerm } = useSearch();
 
-  // Category Filter
-  if (selectedCategory !== "all") {
-    filteredProducts = filteredProducts.filter(
-      (product) => product.category === selectedCategory,
+  const filteredProducts = useMemo(() => {
+    let result = searchTerm.trim()
+      ? searchProducts(products, searchTerm)
+      : [...products];
+
+    if (selectedCategory !== "all") {
+      result = result.filter(
+        (product) => product.category === selectedCategory,
+      );
+    }
+
+    if (selectedBrand !== "all") {
+      result = result.filter(
+        (product) => product.brand === selectedBrand,
+      );
+    }
+
+    result = result.filter(
+      (product) =>
+        product.price >= priceRange[0] &&
+        product.price <= priceRange[1],
+    );
+
+    if (sortBy === "low") {
+      result.sort((first, second) => first.price - second.price);
+    }
+
+    if (sortBy === "high") {
+      result.sort((first, second) => second.price - first.price);
+    }
+
+    return result;
+  }, [
+    products,
+    searchTerm,
+    selectedCategory,
+    selectedBrand,
+    priceRange,
+    sortBy,
+  ]);
+
+  if (!filteredProducts.length) {
+    return (
+      <div className="shop-empty-state">
+        <h2>No products found</h2>
+        <p>Try a different search term or change the filters.</p>
+      </div>
     );
   }
-
-  // Brand Filter
-  if (selectedBrand !== "all") {
-    filteredProducts = filteredProducts.filter(
-      (product) => product.brand === selectedBrand,
-    );
-  }
-
-  // Price Range Filter
-  filteredProducts = filteredProducts.filter(
-    (product) =>
-      product.price >= priceRange[0] && product.price <= priceRange[1],
-  );
-
-  // Sorting
-  if (sortBy === "low") {
-    filteredProducts.sort((a, b) => a.price - b.price);
-  }
-
-  if (sortBy === "high") {
-    filteredProducts.sort((a, b) => b.price - a.price);
-  }
-
-  // Change this number whenever you want the banner elsewhere
-  const bannerAfter = 8;
 
   return (
     <div className="shop-products-grid">
       {filteredProducts.map((product, index) => (
-        <React.Fragment key={product.id}>
+        <Fragment key={product.id}>
           <ProductCard product={product} />
 
-          {index === bannerAfter - 1 && <ShopBanner />}
-        </React.Fragment>
+          {index === 7 && <ShopBanner />}
+        </Fragment>
       ))}
     </div>
   );

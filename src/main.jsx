@@ -9,12 +9,15 @@ import "@fontsource/inter/600.css";
 import "@fontsource/inter/700.css";
 import { ProductProvider } from "./context/ProductContext";
 import { CartProvider } from "./context/CartContext/CartContext";
+import { SearchProvider } from "./context/SearchContext/SearchContext";
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <BrowserRouter>
       <ProductProvider>
         <CartProvider>
-          <App />
+          <SearchProvider>
+            <App />
+          </SearchProvider>
         </CartProvider>
       </ProductProvider>
     </BrowserRouter>

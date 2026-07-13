@@ -1,36 +1,44 @@
+// src/pages/shop/Shop.jsx
+
 import "./Shop.css";
 
 import { useState, useEffect } from "react";
+
 import { useProducts } from "../../context/ProductContext";
+import { useSearch } from "../../context/SearchContext/SearchContext";
 
 import Sidebar from "../../components/shop/Sidebar/Sidebar";
 import ShopToolbar from "../../components/shop/ShopToolbar/ShopToolbar";
 import ShopProducts from "../../components/shop/ShopProducts/ShopProducts";
-import Newsletter from "../../components/home-sections/Newsletter/Newsletter"
+import Newsletter from "../../components/home-sections/Newsletter/Newsletter";
+
 function Shop() {
   const { products, loading } = useProducts();
 
+  const { searchTerm } = useSearch();
+
   const [sortBy, setSortBy] = useState("default");
-
   const [selectedCategory, setSelectedCategory] = useState("all");
-
   const [selectedBrand, setSelectedBrand] = useState("all");
 
-  const lowestPrice = Math.floor(
-    Math.min(...products.map((product) => product.price)),
-  );
+  const lowestPrice =
+    products.length > 0
+      ? Math.floor(Math.min(...products.map((product) => product.price)))
+      : 0;
 
-  const highestPrice = Math.ceil(
-    Math.max(...products.map((product) => product.price)),
-  );
+  const highestPrice =
+    products.length > 0
+      ? Math.ceil(Math.max(...products.map((product) => product.price)))
+      : 0;
 
   const [priceRange, setPriceRange] = useState([lowestPrice, highestPrice]);
 
   useEffect(() => {
-    if (products.length > 0) {
+    if (products.length) {
       setPriceRange([lowestPrice, highestPrice]);
     }
   }, [products, lowestPrice, highestPrice]);
+
   if (loading) {
     return <h2>Loading...</h2>;
   }
@@ -40,9 +48,7 @@ function Shop() {
       <div className="container">
         <div className="breadcrumb">
           <span>Home</span>
-
           <span>/</span>
-
           <span>Shop</span>
         </div>
 
@@ -68,15 +74,16 @@ function Shop() {
 
             <ShopProducts
               products={products}
+              searchTerm={searchTerm}
               sortBy={sortBy}
               selectedCategory={selectedCategory}
               selectedBrand={selectedBrand}
               priceRange={priceRange}
             />
-
           </div>
         </div>
-        <Newsletter/>
+
+        <Newsletter />
       </div>
     </section>
   );

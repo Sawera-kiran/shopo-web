@@ -1,0 +1,137 @@
+.mobile-menu {
+  position: fixed;
+  z-index: 2000;
+  inset: 0;
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    visibility 0.25s ease,
+    opacity 0.25s ease;
+}
+
+.mobile-menu.active {
+  visibility: visible;
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.mobile-menu-overlay {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  border: 0;
+  background: rgba(17, 24, 39, 0.55);
+  cursor: pointer;
+}
+
+.mobile-menu-content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  width: min(340px, 86vw);
+  height: 100%;
+  flex-direction: column;
+  overflow: hidden;
+  background: #fff;
+  box-shadow: 8px 0 32px rgba(0, 0, 0, 0.15);
+  transform: translateX(-100%);
+  transition: transform 0.25s ease;
+}
+
+.mobile-menu.active .mobile-menu-content {
+  transform: translateX(0);
+}
+.mobile-menu-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 18px;
+  border-bottom: 1px solid #e5e7eb;
+}
+.mobile-menu-title {
+  color: #111;
+  font-size: 20px;
+  font-weight: 700;
+}
+.mobile-menu-close {
+  display: grid;
+  width: 40px;
+  height: 40px;
+  place-items: center;
+  border: 0;
+  border-radius: 50%;
+  color: #111;
+  background: #f3f4f6;
+  font-size: 24px;
+  cursor: pointer;
+}
+.mobile-menu-close:hover {
+  background: #e5e7eb;
+}
+.mobile-menu-search {
+  padding: 16px;
+  border-bottom: 1px solid #e5e7eb;
+}
+.mobile-menu-nav {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  overflow-y: auto;
+  padding: 8px 0;
+}
+.mobile-menu-link {
+  display: flex;
+  min-height: 48px;
+  align-items: center;
+  gap: 14px;
+  padding: 12px 20px;
+  color: #374151;
+  font-size: 15px;
+  font-weight: 500;
+  text-decoration: none;
+}
+.mobile-menu-link:hover {
+  color: #111;
+  background: #fbf9f9;
+}
+.mobile-menu-link svg {
+  font-size: 19px;
+}
+.mobile-menu-footer {
+  padding: 16px;
+  border-top: 1px solid #e5e7eb;
+}
+.mobile-cart-button {
+  display: flex;
+  min-height: 48px;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  border-radius: 6px;
+  color: #111;
+  background: var(--dark-yellow, #f4c400);
+  font-weight: 700;
+  text-decoration: none;
+}
+.mobile-cart-badge {
+  display: grid;
+  min-width: 22px;
+  height: 22px;
+  place-items: center;
+  border-radius: 999px;
+  color: #fff;
+  background: #b9b1b1;
+  font-size: 11px;
+}
+
+@media (min-width: 993px) {
+  .mobile-menu {
+    display: none;
+  }
+}
+@media (max-width: 400px) {
+  .mobile-menu-content {
+    width: 100%;
+  }
+}

@@ -50,6 +50,8 @@
   color: #444;
 
   transition: all 0.3s ease;
+
+  border: none !important;
 }
 
 .sidebar-widget button:hover {
