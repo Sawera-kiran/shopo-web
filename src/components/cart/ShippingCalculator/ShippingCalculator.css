@@ -34,6 +34,7 @@ border-color:var(--dark-yellow);
   font-size: 15px;
   font-weight: 600;
   transition: .3s;
+  font-family: "inter", sans-serif;
 }
 
 .shipping-calculator button:hover {

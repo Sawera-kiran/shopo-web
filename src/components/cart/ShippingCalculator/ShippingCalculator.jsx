@@ -33,7 +33,9 @@ function ShippingCalculator() {
         onChange={(e) => setZipCode(e.target.value)}
       />
 
-      <button onClick={handleUpdateCart}>Update Cart</button>
+      <button onClick={handleUpdateCart}>
+        Update Cart
+      </button>
     </div>
   );
 }
