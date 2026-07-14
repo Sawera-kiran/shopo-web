@@ -1,57 +1,36 @@
 import "./QuantitySelector.css";
 
-import { useState } from "react";
-
 import { FiMinus, FiPlus } from "react-icons/fi";
 
 function QuantitySelector({
-  quantity,
+  quantity = 1,
   onIncrease,
   onDecrease,
   showLabel = true,
 }) {
-  const [internalQuantity, setInternalQuantity] = useState(1);
-
-  const currentQuantity =
-    quantity !== undefined ? quantity : internalQuantity;
-
-  const handleIncrease = () => {
-    if (onIncrease) {
-      onIncrease();
-    } else {
-      setInternalQuantity((prev) => prev + 1);
-    }
-  };
-
-  const handleDecrease = () => {
-    if (onDecrease) {
-      onDecrease();
-    } else {
-      if (internalQuantity > 1) {
-        setInternalQuantity((prev) => prev - 1);
-      }
-    }
-  };
-
   return (
     <div className="product-details-quantity">
-
       {showLabel && <h4>Quantity</h4>}
 
       <div className="product-details-quantity-box">
-
-        <button onClick={handleDecrease}>
+        <button
+          type="button"
+          onClick={onDecrease}
+          aria-label="Decrease Quantity"
+        >
           <FiMinus />
         </button>
 
-        <span>{currentQuantity}</span>
+        <span>{quantity}</span>
 
-        <button onClick={handleIncrease}>
+        <button
+          type="button"
+          onClick={onIncrease}
+          aria-label="Increase Quantity"
+        >
           <FiPlus />
         </button>
-
       </div>
-
     </div>
   );
 }

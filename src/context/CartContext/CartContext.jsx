@@ -7,10 +7,13 @@ const CartContext = createContext();
 export function CartProvider({ children }) {
   const [state, dispatch] = useReducer(cartReducer, cartInitialState);
 
-  const addToCart = (product) => {
+  const addToCart = (product, quantity = 1) => {
     dispatch({
       type: "ADD_TO_CART",
-      payload: product,
+      payload: {
+        ...product,
+        quantity,
+      },
     });
   };
 

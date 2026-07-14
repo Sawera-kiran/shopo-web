@@ -1,20 +1,53 @@
 import "./ProductInfo.css";
 
+import { useState } from "react";
+
 import { FaStar } from "react-icons/fa";
-import ProductColors from "../ProductColors/ProductColors";
-import QuantitySelector from "../QuantitySelector/QuantitySelector";
 import { FaHeart } from "react-icons/fa";
 import { FaFacebookF, FaPinterestP, FaTwitter } from "react-icons/fa";
-import { useState } from "react";
+
+import { IoBagHandleOutline, IoCheckmark } from "react-icons/io5";
+
+import { toast } from "react-toastify";
+
+import ProductColors from "../ProductColors/ProductColors";
+import QuantitySelector from "../QuantitySelector/QuantitySelector";
+
 import { useCart } from "../../../context/CartContext/CartContext";
+
 function ProductInfo({ product, selectedImageIndex, setSelectedImageIndex }) {
   const { addToCart } = useCart();
+
+  const [quantity, setQuantity] = useState(1);
+
   const [isWishlisted, setIsWishlisted] = useState(false);
+
+  const [isAdded, setIsAdded] = useState(false);
 
   const oldPrice = (
     product.price /
     (1 - product.discountPercentage / 100)
   ).toFixed(2);
+
+  function handleAddToCart() {
+    addToCart(product, quantity);
+
+    toast.success(`${quantity} × ${product.title} added to cart!`, {
+      position: "top-right",
+      autoClose: 1800,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      theme: "light",
+    });
+
+    setIsAdded(true);
+
+    setTimeout(() => {
+      setIsAdded(false);
+    }, 1500);
+  }
 
   return (
     <div className="product-details-info">
@@ -68,7 +101,12 @@ function ProductInfo({ product, selectedImageIndex, setSelectedImageIndex }) {
       />
 
       <div className="product-details-cart-row">
-        <QuantitySelector showLabel={true} />
+        <QuantitySelector
+          quantity={quantity}
+          onIncrease={() => setQuantity((prev) => prev + 1)}
+          onDecrease={() => setQuantity((prev) => Math.max(1, prev - 1))}
+          showLabel={true}
+        />
 
         <button
           className={`wishlist-btn ${
@@ -79,8 +117,21 @@ function ProductInfo({ product, selectedImageIndex, setSelectedImageIndex }) {
           <FaHeart />
         </button>
 
-        <button className="cart-btn" onClick={() => addToCart(product)}>
-          Add To Cart
+        <button
+          className={`cart-btn ${isAdded ? "added" : ""}`}
+          onClick={handleAddToCart}
+        >
+          {isAdded ? (
+            <>
+              <IoCheckmark />
+              Added To Cart
+            </>
+          ) : (
+            <>
+              <IoBagHandleOutline />
+              Add To Cart
+            </>
+          )}
         </button>
       </div>
 

@@ -5,8 +5,10 @@ export const cartInitialState = {
 export function cartReducer(state, action) {
   switch (action.type) {
     case "ADD_TO_CART": {
+      const quantityToAdd = action.payload.quantity || 1;
+
       const existingProduct = state.cartItems.find(
-        (item) => item.id === action.payload.id
+        (item) => item.id === action.payload.id,
       );
 
       if (existingProduct) {
@@ -16,9 +18,9 @@ export function cartReducer(state, action) {
             item.id === action.payload.id
               ? {
                   ...item,
-                  quantity: item.quantity + 1,
+                  quantity: item.quantity + quantityToAdd,
                 }
-              : item
+              : item,
           ),
         };
       }
@@ -29,7 +31,7 @@ export function cartReducer(state, action) {
           ...state.cartItems,
           {
             ...action.payload,
-            quantity: 1,
+            quantity: quantityToAdd,
           },
         ],
       };
@@ -38,9 +40,7 @@ export function cartReducer(state, action) {
     case "REMOVE_FROM_CART":
       return {
         ...state,
-        cartItems: state.cartItems.filter(
-          (item) => item.id !== action.payload
-        ),
+        cartItems: state.cartItems.filter((item) => item.id !== action.payload),
       };
 
     case "INCREASE_QUANTITY":
@@ -52,7 +52,7 @@ export function cartReducer(state, action) {
                 ...item,
                 quantity: item.quantity + 1,
               }
-            : item
+            : item,
         ),
       };
 
@@ -63,12 +63,9 @@ export function cartReducer(state, action) {
           item.id === action.payload
             ? {
                 ...item,
-                quantity:
-                  item.quantity > 1
-                    ? item.quantity - 1
-                    : 1,
+                quantity: item.quantity > 1 ? item.quantity - 1 : 1,
               }
-            : item
+            : item,
         ),
       };
 
