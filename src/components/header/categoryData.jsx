@@ -10,22 +10,22 @@ import {
 const categoryData = [
   {
     id: 1,
-    name: "Beauty & Fashion",
+    name: "Beauty",
     icon: <IoShirtOutline />,
   },
   {
     id: 2,
-    name: "Furniture & Home Decor",
+    name: "Furniture",
     icon: <IoPhonePortraitOutline />,
   },
   {
     id: 3,
-    name: "Fragrances & Watches",
+    name: "Fragrances",
     icon: <IoWatchOutline />,
   },
   {
     id: 4,
-    name: "Grocery & Gaming",
+    name: "Grocery",
     icon: <IoGameControllerOutline />,
   },
 ];

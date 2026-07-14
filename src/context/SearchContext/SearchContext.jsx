@@ -4,33 +4,41 @@ const SearchContext = createContext(null);
 
 function SearchProvider({ children }) {
   const [searchTerm, setSearchTerm] = useState("");
+
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+
   const [selectedIndex, setSelectedIndex] = useState(-1);
+
+  const clearSearch = () => {
+    setSearchTerm("");
+    setIsDropdownOpen(false);
+    setSelectedIndex(-1);
+  };
 
   const value = useMemo(
     () => ({
       searchTerm,
       setSearchTerm,
+
       isDropdownOpen,
       setIsDropdownOpen,
+
       selectedIndex,
       setSelectedIndex,
-      openDropdown: () => setIsDropdownOpen(true),
-      closeDropdown: () => {
-        setIsDropdownOpen(false);
-        setSelectedIndex(-1);
-      },
-      clearSearch: () => {
-        setSearchTerm("");
-        setIsDropdownOpen(false);
-        setSelectedIndex(-1);
-      },
+
+      clearSearch,
     }),
-    [isDropdownOpen, searchTerm, selectedIndex],
+    [
+      searchTerm,
+      isDropdownOpen,
+      selectedIndex,
+    ]
   );
 
   return (
-    <SearchContext.Provider value={value}>{children}</SearchContext.Provider>
+    <SearchContext.Provider value={value}>
+      {children}
+    </SearchContext.Provider>
   );
 }
 
@@ -38,7 +46,9 @@ function useSearch() {
   const context = useContext(SearchContext);
 
   if (!context) {
-    throw new Error("useSearch must be used within a SearchProvider.");
+    throw new Error(
+      "useSearch must be used within SearchProvider."
+    );
   }
 
   return context;

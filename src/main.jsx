@@ -10,6 +10,8 @@ import "@fontsource/inter/700.css";
 import { ProductProvider } from "./context/ProductContext";
 import { CartProvider } from "./context/CartContext/CartContext";
 import { SearchProvider } from "./context/SearchContext/SearchContext";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <BrowserRouter>
@@ -22,4 +24,5 @@ createRoot(document.getElementById("root")).render(
       </ProductProvider>
     </BrowserRouter>
   </StrictMode>,
+   <ToastContainer position="top-right" autoClose={2000} />
 );

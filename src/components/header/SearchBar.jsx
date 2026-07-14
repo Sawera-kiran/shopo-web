@@ -13,173 +13,218 @@ const MAX_SUGGESTIONS = 8;
 
 function SearchBar() {
   const navigate = useNavigate();
+  const wrapperRef = useRef(null);
+
   const { products } = useProducts();
 
   const {
     searchTerm,
     setSearchTerm,
     isDropdownOpen,
+    setIsDropdownOpen,
     selectedIndex,
     setSelectedIndex,
-    openDropdown,
-    closeDropdown,
   } = useSearch();
 
   const [inputValue, setInputValue] = useState(searchTerm);
-  const searchRef = useRef(null);
+
   const debouncedQuery = useDebounce(inputValue, 300);
 
-  const suggestions = useMemo(
-    () => searchProducts(products, debouncedQuery).slice(0, MAX_SUGGESTIONS),
-    [products, debouncedQuery],
-  );
+  useEffect(() => {
+    setInputValue(searchTerm);
+  }, [searchTerm]);
+
+  const suggestions = useMemo(() => {
+    return searchProducts(products, debouncedQuery).slice(
+      0,
+      MAX_SUGGESTIONS
+    );
+  }, [products, debouncedQuery]);
 
   useEffect(() => {
     setSearchTerm(debouncedQuery);
-    setSelectedIndex(-1);
-  }, [debouncedQuery, setSearchTerm, setSelectedIndex]);
 
-  useEffect(() => {
     if (debouncedQuery.trim()) {
-      openDropdown();
-      return;
+      setIsDropdownOpen(true);
+    } else {
+      setIsDropdownOpen(false);
+      setSelectedIndex(-1);
     }
-
-    closeDropdown();
-  }, [debouncedQuery, openDropdown, closeDropdown]);
+  }, [
+    debouncedQuery,
+    setSearchTerm,
+    setIsDropdownOpen,
+    setSelectedIndex,
+  ]);
 
   useEffect(() => {
-    function handlePointerDown(event) {
-      if (!searchRef.current?.contains(event.target)) {
-        closeDropdown();
+    function handleDocumentClick(event) {
+      if (
+        wrapperRef.current &&
+        !wrapperRef.current.contains(event.target)
+      ) {
+        setIsDropdownOpen(false);
+        setSelectedIndex(-1);
       }
     }
 
-    document.addEventListener("pointerdown", handlePointerDown);
+    document.addEventListener("click", handleDocumentClick);
 
     return () => {
-      document.removeEventListener("pointerdown", handlePointerDown);
+      document.removeEventListener(
+        "click",
+        handleDocumentClick
+      );
     };
-  }, [closeDropdown]);
+  }, [setIsDropdownOpen, setSelectedIndex]);
 
-  function submitSearch(event) {
-    event.preventDefault();
-
-    const query = inputValue.trim();
-
-    if (!query) {
-      closeDropdown();
-      return;
-    }
-
-    setSearchTerm(query);
-    closeDropdown();
-    navigate("/shop");
+  function handleInputChange(e) {
+    setInputValue(e.target.value);
   }
 
-  function handleSuggestionClick(product) {
+  function handleSuggestionSelect(product) {
     setInputValue(product.title);
     setSearchTerm(product.title);
+    setIsDropdownOpen(false);
     setSelectedIndex(-1);
-    closeDropdown();
-    navigate("/shop");
   }
 
-  function handleKeyDown(event) {
-    if (event.key === "Escape") {
-      closeDropdown();
+  function performSearch() {
+    const query = inputValue.trim();
+
+    if (!query) return;
+
+    const exactProduct = products.find(
+      (product) =>
+        product.title.trim().toLowerCase() ===
+        query.toLowerCase()
+    );
+
+    setSearchTerm(query);
+    setIsDropdownOpen(false);
+    setSelectedIndex(-1);
+
+    if (exactProduct) {
+      navigate(`/product/${exactProduct.id}`);
+    } else {
+      navigate("/shop");
+    }
+  }
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    performSearch();
+  }
+
+  function handleKeyDown(e) {
+    if (e.key === "Escape") {
+      setIsDropdownOpen(false);
+      setSelectedIndex(-1);
       return;
     }
 
-    if (event.key === "ArrowDown" && suggestions.length) {
-      event.preventDefault();
-      openDropdown();
+    if (!suggestions.length) {
+      if (e.key === "Enter") {
+        e.preventDefault();
+        performSearch();
+      }
+      return;
+    }
 
-      setSelectedIndex((index) =>
-        index >= suggestions.length - 1 ? 0 : index + 1,
+    if (e.key === "ArrowDown") {
+      e.preventDefault();
+
+      setIsDropdownOpen(true);
+
+      setSelectedIndex((prev) =>
+        prev >= suggestions.length - 1 ? 0 : prev + 1
       );
 
       return;
     }
 
-    if (event.key === "ArrowUp" && suggestions.length) {
-      event.preventDefault();
-      openDropdown();
+    if (e.key === "ArrowUp") {
+      e.preventDefault();
 
-      setSelectedIndex((index) =>
-        index <= 0 ? suggestions.length - 1 : index - 1,
+      setSelectedIndex((prev) =>
+        prev <= 0 ? suggestions.length - 1 : prev - 1
       );
 
       return;
     }
 
-    if (event.key === "Enter" && selectedIndex >= 0) {
-      event.preventDefault();
-      handleSuggestionClick(suggestions[selectedIndex]);
+    if (e.key === "Enter") {
+      e.preventDefault();
+
+      if (selectedIndex >= 0) {
+        handleSuggestionSelect(
+          suggestions[selectedIndex]
+        );
+      } else {
+        performSearch();
+      }
     }
   }
 
   return (
-    <div className="header-search" ref={searchRef}>
+    <div
+      className="header-search"
+      ref={wrapperRef}
+    >
       <form
         className="header-search-form"
-        onSubmit={submitSearch}
-        role="search"
+        onSubmit={handleSubmit}
       >
         <input
-          aria-autocomplete="list"
-          aria-controls="search-suggestions"
-          aria-expanded={isDropdownOpen && suggestions.length > 0}
-          aria-label="Search products"
-          autoComplete="off"
+          type="search"
           className="header-search-input"
-          onChange={(event) => setInputValue(event.target.value)}
+          placeholder="Search products..."
+          autoComplete="off"
+          value={inputValue}
+          onChange={handleInputChange}
+          onKeyDown={handleKeyDown}
           onFocus={() => {
-            if (inputValue.trim()) {
-              openDropdown();
+            if (inputValue.trim() && suggestions.length) {
+              setIsDropdownOpen(true);
             }
           }}
-          onKeyDown={handleKeyDown}
-          placeholder="Search products..."
-          type="search"
-          value={inputValue}
         />
 
         <button
-          aria-label="Search"
-          className="header-search-btn"
           type="submit"
+          className="header-search-btn"
+          aria-label="Search"
         >
-          <IoSearchOutline aria-hidden="true" />
+          <IoSearchOutline />
         </button>
       </form>
 
-      {isDropdownOpen && suggestions.length > 0 && (
-        <ul
-          className="header-search-dropdown"
-          id="search-suggestions"
-          role="listbox"
-        >
-          {suggestions.map((product, index) => (
-            <li
-              key={product.id}
-              role="option"
-              aria-selected={selectedIndex === index}
-            >
-              <button
-                className={`header-search-item${
-                  selectedIndex === index ? " active" : ""
-                }`}
-                onClick={() => handleSuggestionClick(product)}
-                onMouseEnter={() => setSelectedIndex(index)}
-                type="button"
-              >
-                {product.title}
-              </button>
-            </li>
-          ))}
-        </ul>
-      )}
+      {isDropdownOpen &&
+        suggestions.length > 0 && (
+          <ul className="header-search-dropdown">
+            {suggestions.map(
+              (product, index) => (
+                <li
+                  key={product.id}
+                  className={`header-search-item ${
+                    selectedIndex === index
+                      ? "active"
+                      : ""
+                  }`}
+                  onMouseDown={(e) => {
+                    e.preventDefault();
+                    handleSuggestionSelect(product);
+                  }}
+                  onMouseEnter={() =>
+                    setSelectedIndex(index)
+                  }
+                >
+                  {product.title}
+                </li>
+              )
+            )}
+          </ul>
+        )}
     </div>
   );
 }

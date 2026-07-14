@@ -1,19 +1,29 @@
-export default function searchProducts(products = [], query = "") {
-  const normalizedQuery = query.trim().toLowerCase();
+// src/utils/searchProducts.js
 
-  if (!normalizedQuery) {
-    return [];
-  }
+/**
+ * Performs a case-insensitive search.
+ * Matches:
+ * - title
+ * - brand
+ * - category
+ */
+
+function normalize(value) {
+  return String(value ?? "")
+    .trim()
+    .toLowerCase();
+}
+
+export default function searchProducts(products = [], query = "") {
+  const search = normalize(query);
+
+  if (!search) return [];
 
   return products.filter((product) => {
-    const title = String(product.title ?? "").toLowerCase();
-    const brand = String(product.brand ?? "").toLowerCase();
-    const category = String(product.category ?? "").toLowerCase();
-
     return (
-      title.includes(normalizedQuery) ||
-      brand.includes(normalizedQuery) ||
-      category.includes(normalizedQuery)
+      normalize(product.title).includes(search) ||
+      normalize(product.brand).includes(search) ||
+      normalize(product.category).includes(search)
     );
   });
 }
