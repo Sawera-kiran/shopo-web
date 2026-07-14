@@ -170,11 +170,6 @@ function TopSellingCard({ product }) {
 
         </div>
 
-        <button className="cart-btn-selling">
-          <IoBagHandleOutline />
-          Add To Cart
-        </button>
-
       </div>
 
     </div>

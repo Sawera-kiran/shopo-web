@@ -1,7 +1,11 @@
 .newsletter {
   margin-top: 90px;
   font-family: "inter" !important;
-  margin-left: -180px;
+}
+
+.newsletter .container {
+  width: 100%!important;
+  overflow: hidden;
 }
 
 .newsletter-wrapper {
@@ -13,7 +17,6 @@
   display: flex;
   justify-content: space-around;
   align-items: center;
-  padding-right: 90px;
 }
 
 .newsletter-content {

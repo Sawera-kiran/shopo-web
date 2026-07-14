@@ -166,7 +166,6 @@
 }
 
 .add-cart-btn {
-  margin: 0 70px 23px;
   border: none;
   background: var(--dark-yellow);
   color: #111;
@@ -177,6 +176,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  margin:auto;
   gap: 10px;
   cursor: pointer;
   transition: 0.35s;
