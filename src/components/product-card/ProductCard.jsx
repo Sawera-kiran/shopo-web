@@ -1,13 +1,17 @@
 import "./ProductCard.css";
+import { useWishlist } from "../../context/WishlistContext/WishlistContext";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import {
   IoExpandOutline,
-  IoHeartOutline,
   IoRefreshOutline,
   IoBagHandleOutline,
   IoStar,
   IoCheckmark,
+} from "react-icons/io5";
+import {
+  IoHeart,
+  IoHeartOutline,
 } from "react-icons/io5";
 import { toast } from "react-toastify";
 
@@ -16,21 +20,21 @@ import { useCart } from "../../context/CartContext/CartContext";
 function ProductCard({ product }) {
   const { addToCart } = useCart();
 
+  const { addToWishlist, removeFromWishlist, isInWishlist } = useWishlist();
+
   const [isAdded, setIsAdded] = useState(false);
 
-  const {
-    id,
-    title,
-    thumbnail,
-    price,
-    discountPercentage,
-    rating,
-  } = product;
+  const { id, title, thumbnail, price, discountPercentage, rating } = product;
 
-  const originalPrice = (
-    price /
-    (1 - discountPercentage / 100)
-  ).toFixed(2);
+  const originalPrice = (price / (1 - discountPercentage / 100)).toFixed(2);
+
+  function handleWishlist() {
+    if (isInWishlist(product.id)) {
+      removeFromWishlist(product.id);
+    } else {
+      addToWishlist(product);
+    }
+  }
 
   function handleAddToCart() {
     addToCart(product);
@@ -56,11 +60,7 @@ function ProductCard({ product }) {
     <div className="product-card">
       <div className="image-wrapper">
         <Link to={`/product/${id}`}>
-          <img
-            src={thumbnail}
-            alt={title}
-            className="product-image"
-          />
+          <img src={thumbnail} alt={title} className="product-image" />
         </Link>
 
         <span className="discount-badge">
@@ -72,8 +72,8 @@ function ProductCard({ product }) {
             <IoExpandOutline />
           </button>
 
-          <button>
-            <IoHeartOutline />
+          <button onClick={handleWishlist}>
+            {isInWishlist(product.id) ? <IoHeart /> : <IoHeartOutline />}
           </button>
 
           <button>
@@ -87,38 +87,25 @@ function ProductCard({ product }) {
           {Array.from({ length: 5 }, (_, index) => (
             <IoStar
               key={index}
-              className={
-                index < Math.round(rating)
-                  ? "star active"
-                  : "star"
-              }
+              className={index < Math.round(rating) ? "star active" : "star"}
             />
           ))}
         </div>
 
-        <Link
-          to={`/product/${id}`}
-          className="product-title"
-        >
+        <Link to={`/product/${id}`} className="product-title">
           {title}
         </Link>
 
         <div className="product-price">
-          <span className="old-price">
-            ${originalPrice}
-          </span>
+          <span className="old-price">${originalPrice}</span>
 
-          <span className="new-price">
-            ${price}
-          </span>
+          <span className="new-price">${price}</span>
         </div>
       </div>
 
       <div className="cart-wrapper">
         <button
-          className={`add-cart-btn ${
-            isAdded ? "added" : ""
-          }`}
+          className={`add-cart-btn ${isAdded ? "added" : ""}`}
           onClick={handleAddToCart}
         >
           {isAdded ? (

@@ -12,17 +12,20 @@ import { CartProvider } from "./context/CartContext/CartContext";
 import { SearchProvider } from "./context/SearchContext/SearchContext";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { WishlistProvider } from "./context/WishlistContext/WishlistContext";
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <BrowserRouter>
       <ProductProvider>
         <CartProvider>
           <SearchProvider>
-            <App />
+            <WishlistProvider>
+              <App />
+            </WishlistProvider>
           </SearchProvider>
         </CartProvider>
       </ProductProvider>
     </BrowserRouter>
   </StrictMode>,
-   <ToastContainer position="top-right" autoClose={2000} />
+  <ToastContainer position="top-right" autoClose={2000} />,
 );

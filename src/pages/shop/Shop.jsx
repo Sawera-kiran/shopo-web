@@ -83,8 +83,8 @@ function Shop() {
           </div>
         </div>
 
-        <Newsletter />
       </div>
+        <Newsletter />
     </section>
   );
 }
