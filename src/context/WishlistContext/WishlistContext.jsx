@@ -53,11 +53,13 @@ function WishlistProvider({ children }) {
     });
   };
 
-  const addAllToCart = () => {
-    state.wishlistItems.forEach((item) => {
-      addToCart(item, item.quantity);
-    });
-  };
+const addAllToCart = () => {
+  state.wishlistItems.forEach((item) => {
+    addToCart(item, item.quantity);
+  });
+
+  return state.wishlistItems.length;
+};
 
   const isInWishlist = (id) => {
     return state.wishlistItems.some(

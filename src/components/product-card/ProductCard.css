@@ -1,12 +1,18 @@
 .product-card {
   position: relative;
-  background: #fff;
-  overflow: hidden;
-  transition: all 0.35s ease;
-  cursor: pointer;
+
   display: flex;
   flex-direction: column;
+
+  overflow: hidden;
+
   border: 1px solid #eee;
+
+  background: #fff;
+
+  cursor: pointer;
+
+  transition: all 0.35s ease;
 }
 
 .product-card:hover {
@@ -15,15 +21,21 @@
 
 .image-wrapper {
   position: relative;
+
   overflow: hidden;
+
   padding: 35px;
+
   background: #fff;
 }
 
 .product-image {
   width: 100%;
+
   height: 250px;
+
   object-fit: contain;
+
   transition: transform 0.45s ease;
 }
 
@@ -33,8 +45,14 @@
 
 .discount-badge {
   position: absolute;
+
   top: 18px;
+
   left: 18px;
+
+  padding: 6px 12px;
+
+  border-radius: 20px;
 
   background: var(--primary-color);
 
@@ -43,10 +61,6 @@
   font-size: 13px;
 
   font-weight: 600;
-
-  padding: 6px 12px;
-
-  border-radius: 20px;
 }
 
 .product-actions {
@@ -57,7 +71,6 @@
   right: 18px;
 
   display: flex;
-
   flex-direction: column;
 
   gap: 8px;
@@ -80,25 +93,23 @@
 
   height: 42px;
 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
   border: none;
 
   background: #fff;
 
-  display: flex;
-
-  justify-content: center;
-
-  align-items: center;
-
   cursor: pointer;
-
-  font-size: 20px;
 
   color: #222;
 
+  font-size: 20px;
+
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
 
-  transition: 0.25s;
+  transition: all 0.25s ease;
 }
 
 .product-actions button:hover {
@@ -106,21 +117,25 @@
 }
 
 .product-info {
-  padding: 35px;
-  padding-bottom: 20px !important;
   display: flex;
-
   flex-direction: column;
+
   gap: 12px;
+
+  padding: 35px;
+
+  padding-bottom: 20px;
 }
 
 .product-rating {
   display: flex;
+
   gap: 3px;
 }
 
 .star {
   color: #d6d6d6;
+
   font-size: 18px;
 }
 
@@ -129,16 +144,21 @@
 }
 
 .product-title {
-  color: rgb(85, 85, 85);
-  text-decoration: none;
-  font-size: 18px;
-  font-weight: 500;
-  line-height: 1.5;
-  transition: 0.3s;
   display: -webkit-box;
-  -webkit-box-orient: vertical;
+
   overflow: hidden;
-  min-height: 54px;
+
+  color: #555;
+
+  text-decoration: none;
+
+  font-size: 18px;
+
+  font-weight: 500;
+
+  line-height: 1.5;
+
+  transition: 0.3s;
 }
 
 .product-title:hover {
@@ -148,12 +168,15 @@
 .product-price {
   display: flex;
   align-items: center;
+
   gap: 10px;
 }
 
 .old-price {
-  text-decoration: line-through;
   color: #9d9d9d;
+
+  text-decoration: line-through;
+
   font-size: 18px;
 }
 
@@ -165,77 +188,121 @@
   font-weight: 700;
 }
 
-.add-cart-btn {
-  border: none;
-  background: var(--dark-yellow);
-  color: #111;
-  height: 54px;
-  width: 60%;
-  font-size: 15px;
-  font-weight: 600;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin:auto;
-  gap: 10px;
-  cursor: pointer;
-  transition: 0.35s;
-  transform: translateY(90px);
-  opacity: 0;
-}
+.cart-wrapper {
+  height: 75px;
 
-.product-card:hover .add-cart-btn {
-  transform: translateY(0);
-  opacity: 1;
+  overflow: hidden;
 }
+/* Tablet */
 
 @media (max-width: 992px) {
   .product-image {
     height: 220px;
   }
+
+  .product-info {
+    padding: 28px;
+  }
+
+  .product-title {
+    font-size: 17px;
+  }
+
+  .new-price {
+    font-size: 24px;
+  }
 }
 
+/* Mobile */
+
 @media (max-width: 768px) {
+  .image-wrapper {
+    padding: 22px;
+  }
+
   .product-image {
     height: 190px;
+  }
+
+  .product-info {
+    padding: 22px;
   }
 
   .product-title {
     font-size: 16px;
   }
 
+  .old-price {
+    font-size: 16px;
+  }
+
   .new-price {
     font-size: 22px;
   }
+
+  .product-actions {
+    right: 12px;
+
+    transform: translateX(0);
+
+    opacity: 1;
+  }
+
+  .product-actions button {
+    width: 40px;
+    height: 40px;
+
+    font-size: 18px;
+  }
+
+  .cart-wrapper {
+    height: auto;
+
+    padding: 0 16px 16px;
+  }
 }
+
+/* Small Mobile */
 
 @media (max-width: 576px) {
   .image-wrapper {
     padding: 18px;
   }
 
+  .product-image {
+    height: 170px;
+  }
+
   .product-info {
-    padding: 16px;
+    padding: 18px;
+  }
+
+  .product-title {
+    font-size: 15px;
+  }
+
+  .old-price {
+    font-size: 15px;
+  }
+
+  .new-price {
+    font-size: 20px;
   }
 
   .product-actions {
+    top: 15px;
+
     right: 10px;
   }
 
   .product-actions button {
-    width: 38px;
+    width: 36px;
+    height: 36px;
 
-    height: 38px;
-
-    font-size: 18px;
+    font-size: 17px;
   }
 
-  .add-cart-btn {
-    margin: 0 16px 16px;
+  .cart-wrapper {
+    padding: 0 12px 12px;
   }
-}
-
-.cart-wrapper {
-  height: 75px;
-  overflow: hidden;
 }

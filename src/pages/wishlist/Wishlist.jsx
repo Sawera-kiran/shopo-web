@@ -1,13 +1,14 @@
 import "./Wishlist.css";
 
 import { Link } from "react-router-dom";
-import { IoClose } from "react-icons/io5";
 
-import EmptyWishlist from "../../components/wishlist/EmptyWishlist/EmptyWishlist";
+import { IoClose, IoHeartOutline } from "react-icons/io5";
+
 import QuantitySelector from "../../components/product-details/QuantitySelector/QuantitySelector";
+import AnimatedAddToCartButton from "../../components/comon/AnimatedAddToCartButton/AnimatedAddToCartButton";
+import AddAllToCartButton from "../../components/comon/AddAllToCartButton/AddAllToCartButton";
 
 import { useWishlist } from "../../context/WishlistContext/WishlistContext";
-import { useCart } from "../../context/CartContext/CartContext";
 
 function Wishlist() {
   const {
@@ -16,26 +17,25 @@ function Wishlist() {
     increaseQuantity,
     decreaseQuantity,
     clearWishlist,
-    addAllToCart,
   } = useWishlist();
-
-  const { addToCart } = useCart();
 
   if (wishlistItems.length === 0) {
     return (
       <section className="wishlist-page">
         <div className="container">
-          <div className="breadcrumb">
-            <Link to="/">Home</Link>
+          <div className="empty-wishlist">
+            <div className="empty-wishlist-icon">
+              <IoHeartOutline />
+            </div>
 
-            <span>/</span>
+            <h2>Your Wishlist is Empty</h2>
 
-            <span>Wishlist</span>
+            <p>Save products you love and they'll appear here.</p>
+
+            <Link to="/shop" className="empty-wishlist-btn">
+              Continue Shopping
+            </Link>
           </div>
-
-          <h1 className="wishlist-title">Wishlist</h1>
-
-          <EmptyWishlist />
         </div>
       </section>
     );
@@ -44,29 +44,23 @@ function Wishlist() {
   return (
     <section className="wishlist-page">
       <div className="container">
-        <div className="breadcrumb">
-          <Link to="/">Home</Link>
-
-          <span>/</span>
-
-          <span>Wishlist</span>
-        </div>
-
-        <h1 className="wishlist-title">Wishlist</h1>
+        <h1 className="wishlist-title">
+          My Wishlist
+        </h1>
 
         <div className="wishlist-table-wrapper">
           <table className="wishlist-table">
             <thead>
               <tr>
-                <th>PRODUCT</th>
+                <th>Product</th>
 
-                <th>PRICE</th>
+                <th>Price</th>
 
-                <th>QUANTITY</th>
+                <th>Quantity</th>
 
-                <th>TOTAL</th>
+                <th>Total</th>
 
-                <th>ADD TO CART</th>
+                <th>Add To Cart</th>
 
                 <th></th>
               </tr>
@@ -77,44 +71,61 @@ function Wishlist() {
                 <tr key={item.id}>
                   <td>
                     <div className="wishlist-product">
-                      <img src={item.thumbnail} alt={item.title} />
+                      <img
+                        src={item.thumbnail}
+                        alt={item.title}
+                      />
 
                       <div className="wishlist-product-info">
-                        <Link to={`/product/${item.id}`}>{item.title}</Link>
+                        <Link to={`/product/${item.id}`}>
+                          {item.title}
+                        </Link>
 
                         <span>{item.brand}</span>
                       </div>
                     </div>
                   </td>
 
-                  <td className="wishlist-price">${item.price.toFixed(2)}</td>
+                  <td className="wishlist-price">
+                    ${item.price}
+                  </td>
 
                   <td>
                     <QuantitySelector
                       quantity={item.quantity}
-                      onIncrease={() => increaseQuantity(item.id)}
-                      onDecrease={() => decreaseQuantity(item.id)}
+                      onIncrease={() =>
+                        increaseQuantity(item.id)
+                      }
+                      onDecrease={() =>
+                        decreaseQuantity(item.id)
+                      }
                       showLabel={false}
+                      variant="compact"
                     />
                   </td>
 
                   <td className="wishlist-total">
-                    ${(item.price * item.quantity).toFixed(2)}
+                    $
+                    {(
+                      item.price * item.quantity
+                    ).toFixed(2)}
+                  </td>
+
+                  <td>
+                    <AnimatedAddToCartButton
+                      product={item}
+                      quantity={item.quantity}
+                      variant="table"
+                    />
                   </td>
 
                   <td>
                     <button
-                      className="wishlist-cart-btn"
-                      onClick={() => addToCart(item, item.quantity)}
-                    >
-                      Add To Cart
-                    </button>
-                  </td>
-
-                  <td>
-                    <button
-                      className="wishlist-remove-btn"
-                      onClick={() => removeFromWishlist(item.id)}
+                      type="button"
+                      className="remove-btn"
+                      onClick={() =>
+                        removeFromWishlist(item.id)
+                      }
                     >
                       <IoClose />
                     </button>
@@ -126,13 +137,15 @@ function Wishlist() {
         </div>
 
         <div className="wishlist-bottom">
-          <button className="wishlist-clear-btn" onClick={clearWishlist}>
+          <button
+            type="button"
+            className="wishlist-clear-btn"
+            onClick={clearWishlist}
+          >
             Clear Wishlist
           </button>
 
-          <button className="wishlist-add-all-btn" onClick={addAllToCart}>
-            Add All To Cart
-          </button>
+          <AddAllToCartButton />
         </div>
       </div>
     </section>

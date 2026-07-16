@@ -7,12 +7,13 @@ function QuantitySelector({
   onIncrease,
   onDecrease,
   showLabel = true,
+  variant = "default",
 }) {
   return (
-    <div className="product-details-quantity">
+    <div className={`quantity-selector ${variant}`}>
       {showLabel && <h4>Quantity</h4>}
 
-      <div className="product-details-quantity-box">
+      <div className={`quantity-selector-box ${variant}`}>
         <button
           type="button"
           onClick={onDecrease}

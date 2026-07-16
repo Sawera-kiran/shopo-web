@@ -1,66 +1,40 @@
 import "./ProductCard.css";
-import { useWishlist } from "../../context/WishlistContext/WishlistContext";
-import { useState } from "react";
+
 import { Link } from "react-router-dom";
+
 import {
   IoExpandOutline,
   IoRefreshOutline,
-  IoBagHandleOutline,
   IoStar,
-  IoCheckmark,
 } from "react-icons/io5";
-import {
-  IoHeart,
-  IoHeartOutline,
-} from "react-icons/io5";
-import { toast } from "react-toastify";
 
-import { useCart } from "../../context/CartContext/CartContext";
+import AnimatedAddToCartButton from "../comon/AnimatedAddToCartButton/AnimatedAddToCartButton";
+import WishlistButton from "../comon/WishlistButton/WishlistButton";
 
 function ProductCard({ product }) {
-  const { addToCart } = useCart();
+  const {
+    id,
+    title,
+    thumbnail,
+    price,
+    discountPercentage,
+    rating,
+  } = product;
 
-  const { addToWishlist, removeFromWishlist, isInWishlist } = useWishlist();
-
-  const [isAdded, setIsAdded] = useState(false);
-
-  const { id, title, thumbnail, price, discountPercentage, rating } = product;
-
-  const originalPrice = (price / (1 - discountPercentage / 100)).toFixed(2);
-
-  function handleWishlist() {
-    if (isInWishlist(product.id)) {
-      removeFromWishlist(product.id);
-    } else {
-      addToWishlist(product);
-    }
-  }
-
-  function handleAddToCart() {
-    addToCart(product);
-
-    toast.success(`${title} added to cart!`, {
-      position: "top-right",
-      autoClose: 1800,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      theme: "light",
-    });
-
-    setIsAdded(true);
-
-    setTimeout(() => {
-      setIsAdded(false);
-    }, 1500);
-  }
+  const originalPrice = (
+    price /
+    (1 - discountPercentage / 100)
+  ).toFixed(2);
 
   return (
     <div className="product-card">
       <div className="image-wrapper">
         <Link to={`/product/${id}`}>
-          <img src={thumbnail} alt={title} className="product-image" />
+          <img
+            src={thumbnail}
+            alt={title}
+            className="product-image"
+          />
         </Link>
 
         <span className="discount-badge">
@@ -68,15 +42,16 @@ function ProductCard({ product }) {
         </span>
 
         <div className="product-actions">
-          <button>
+          <button type="button">
             <IoExpandOutline />
           </button>
 
-          <button onClick={handleWishlist}>
-            {isInWishlist(product.id) ? <IoHeart /> : <IoHeartOutline />}
-          </button>
+          <WishlistButton
+            product={product}
+            variant="card"
+          />
 
-          <button>
+          <button type="button">
             <IoRefreshOutline />
           </button>
         </div>
@@ -87,39 +62,38 @@ function ProductCard({ product }) {
           {Array.from({ length: 5 }, (_, index) => (
             <IoStar
               key={index}
-              className={index < Math.round(rating) ? "star active" : "star"}
+              className={
+                index < Math.round(rating)
+                  ? "star active"
+                  : "star"
+              }
             />
           ))}
         </div>
 
-        <Link to={`/product/${id}`} className="product-title">
+        <Link
+          to={`/product/${id}`}
+          className="product-title"
+        >
           {title}
         </Link>
 
         <div className="product-price">
-          <span className="old-price">${originalPrice}</span>
+          <span className="old-price">
+            ${originalPrice}
+          </span>
 
-          <span className="new-price">${price}</span>
+          <span className="new-price">
+            ${price}
+          </span>
         </div>
       </div>
 
       <div className="cart-wrapper">
-        <button
-          className={`add-cart-btn ${isAdded ? "added" : ""}`}
-          onClick={handleAddToCart}
-        >
-          {isAdded ? (
-            <>
-              <IoCheckmark />
-              Added to Cart
-            </>
-          ) : (
-            <>
-              <IoBagHandleOutline />
-              Add To Cart
-            </>
-          )}
-        </button>
+        <AnimatedAddToCartButton
+          product={product}
+          variant="card"
+        />
       </div>
     </div>
   );

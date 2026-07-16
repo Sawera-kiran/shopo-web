@@ -21,11 +21,11 @@ createRoot(document.getElementById("root")).render(
           <SearchProvider>
             <WishlistProvider>
               <App />
+              <ToastContainer position="top-right" autoClose={2000} />
             </WishlistProvider>
           </SearchProvider>
         </CartProvider>
       </ProductProvider>
     </BrowserRouter>
   </StrictMode>,
-  <ToastContainer position="top-right" autoClose={2000} />,
 );

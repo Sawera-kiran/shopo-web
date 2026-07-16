@@ -63,6 +63,7 @@ function CartTable() {
                   onIncrease={() => increaseQuantity(item.id)}
                   onDecrease={() => decreaseQuantity(item.id)}
                   showLabel={false}
+                  variant="compact"
                 />
               </td>
 

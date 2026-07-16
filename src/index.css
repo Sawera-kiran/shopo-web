@@ -10,6 +10,9 @@ body,
   min-height: 100%;
   --dark-yellow: #ffbb38;
   --light-yellow: #f4c400;
+  --toastify-color-success: var(--dark-yellow);
+  --toastify-color-progress-success: var(--dark-yellow);
+  --toastify-icon-color-success: var(--dark-yellow);
 }
 
 body {

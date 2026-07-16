@@ -2,52 +2,30 @@ import "./ProductInfo.css";
 
 import { useState } from "react";
 
-import { FaStar } from "react-icons/fa";
-import { FaHeart } from "react-icons/fa";
-import { FaFacebookF, FaPinterestP, FaTwitter } from "react-icons/fa";
-
-import { IoBagHandleOutline, IoCheckmark } from "react-icons/io5";
-
-import { toast } from "react-toastify";
+import {
+  FaStar,
+  FaFacebookF,
+  FaPinterestP,
+  FaTwitter,
+} from "react-icons/fa";
 
 import ProductColors from "../ProductColors/ProductColors";
 import QuantitySelector from "../QuantitySelector/QuantitySelector";
 
-import { useCart } from "../../../context/CartContext/CartContext";
+import WishlistButton from "../../comon/WishlistButton/WishlistButton";
+import AnimatedAddToCartButton from "../../comon/AnimatedAddToCartButton/AnimatedAddToCartButton";
 
-function ProductInfo({ product, selectedImageIndex, setSelectedImageIndex }) {
-  const { addToCart } = useCart();
-
+function ProductInfo({
+  product,
+  selectedImageIndex,
+  setSelectedImageIndex,
+}) {
   const [quantity, setQuantity] = useState(1);
-
-  const [isWishlisted, setIsWishlisted] = useState(false);
-
-  const [isAdded, setIsAdded] = useState(false);
 
   const oldPrice = (
     product.price /
     (1 - product.discountPercentage / 100)
   ).toFixed(2);
-
-  function handleAddToCart() {
-    addToCart(product, quantity);
-
-    toast.success(`${quantity} × ${product.title} added to cart!`, {
-      position: "top-right",
-      autoClose: 1800,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      theme: "light",
-    });
-
-    setIsAdded(true);
-
-    setTimeout(() => {
-      setIsAdded(false);
-    }, 1500);
-  }
 
   return (
     <div className="product-details-info">
@@ -55,19 +33,25 @@ function ProductInfo({ product, selectedImageIndex, setSelectedImageIndex }) {
         {product.category.replace(/-/g, " ")}
       </p>
 
-      <h1 className="product-details-title">{product.title}</h1>
+      <h1 className="product-details-title">
+        {product.title}
+      </h1>
 
       <div className="product-details-rating">
         {[...Array(5)].map((_, index) => (
           <FaStar
             key={index}
             className={
-              index < Math.round(product.rating) ? "filled-star" : "empty-star"
+              index < Math.round(product.rating)
+                ? "filled-star"
+                : "empty-star"
             }
           />
         ))}
 
-        <span className="rating-value">{product.rating}</span>
+        <span className="rating-value">
+          {product.rating}
+        </span>
 
         <span className="review-count">
           ({product.reviews?.length || 0} Reviews)
@@ -75,9 +59,13 @@ function ProductInfo({ product, selectedImageIndex, setSelectedImageIndex }) {
       </div>
 
       <div className="product-details-price">
-        <span className="current-price">${product.price}</span>
+        <span className="current-price">
+          ${product.price}
+        </span>
 
-        <span className="old-price">${oldPrice}</span>
+        <span className="old-price">
+          ${oldPrice}
+        </span>
 
         <span className="discount-percent">
           -{Math.round(product.discountPercentage)}%
@@ -85,14 +73,26 @@ function ProductInfo({ product, selectedImageIndex, setSelectedImageIndex }) {
       </div>
 
       <div className="availability-row">
-        <span className="availability-label">Availability :</span>
+        <span className="availability-label">
+          Availability :
+        </span>
 
-        <span className={product.stock > 0 ? "in-stock" : "out-stock"}>
-          {product.stock > 0 ? "In Stock" : "Out of Stock"}
+        <span
+          className={
+            product.stock > 0
+              ? "in-stock"
+              : "out-stock"
+          }
+        >
+          {product.stock > 0
+            ? "In Stock"
+            : "Out of Stock"}
         </span>
       </div>
 
-      <p className="product-details-description">{product.description}</p>
+      <p className="product-details-description">
+        {product.description}
+      </p>
 
       <ProductColors
         product={product}
@@ -103,65 +103,65 @@ function ProductInfo({ product, selectedImageIndex, setSelectedImageIndex }) {
       <div className="product-details-cart-row">
         <QuantitySelector
           quantity={quantity}
-          onIncrease={() => setQuantity((prev) => prev + 1)}
-          onDecrease={() => setQuantity((prev) => Math.max(1, prev - 1))}
+          onIncrease={() =>
+            setQuantity((prev) => prev + 1)
+          }
+          onDecrease={() =>
+            setQuantity((prev) =>
+              Math.max(1, prev - 1)
+            )
+          }
           showLabel={true}
+          variant="default"
         />
 
-        <button
-          className={`wishlist-btn ${
-            isWishlisted ? "wishlist-btn-active" : ""
-          }`}
-          onClick={() => setIsWishlisted(!isWishlisted)}
-        >
-          <FaHeart />
-        </button>
+        <WishlistButton
+          product={product}
+          variant="details"
+        />
 
-        <button
-          className={`cart-btn ${isAdded ? "added" : ""}`}
-          onClick={handleAddToCart}
-        >
-          {isAdded ? (
-            <>
-              <IoCheckmark />
-              Added To Cart
-            </>
-          ) : (
-            <>
-              <IoBagHandleOutline />
-              Add To Cart
-            </>
-          )}
-        </button>
+        <AnimatedAddToCartButton
+          product={product}
+          quantity={quantity}
+          variant="details"
+          fullWidth
+        />
       </div>
 
       <div className="product-details-meta">
         <p>
-          <strong>Category :</strong> {product.category}
+          <strong>Category :</strong>{" "}
+          {product.category}
         </p>
 
         <p>
-          <strong>Tags :</strong> {product.tags?.join(", ")}
+          <strong>Tags :</strong>{" "}
+          {product.tags?.join(", ")}
         </p>
 
         <p>
-          <strong>SKU :</strong> {product.sku}
+          <strong>SKU :</strong>{" "}
+          {product.sku}
         </p>
 
         <p>
-          <strong>Brand :</strong> {product.brand}
+          <strong>Brand :</strong>{" "}
+          {product.brand}
         </p>
 
         <p>
-          <strong>Warranty :</strong> {product.warrantyInformation}
+          <strong>Warranty :</strong>{" "}
+          {product.warrantyInformation}
         </p>
 
         <p>
-          <strong>Shipping :</strong> {product.shippingInformation}
+          <strong>Shipping :</strong>{" "}
+          {product.shippingInformation}
         </p>
 
         <p>
-          <strong>Return :</strong> {product.returnPolicy}
+          <strong>Return :</strong>{" "}
+          {product.returnPolicy}
         </p>
       </div>
 

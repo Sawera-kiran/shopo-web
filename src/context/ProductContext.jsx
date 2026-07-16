@@ -40,4 +40,4 @@ function useProducts() {
     return useContext(ProductContext);
 }
 
-export { ProductProvider, useProducts };
+export { ProductProvider, useProducts };    
