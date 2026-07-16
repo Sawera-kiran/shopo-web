@@ -6,10 +6,11 @@ import ProductDetails from "../pages/productdetails/ProductDetails";
 import Cart from "../pages/cart/Cart";
 import Wishlist from "../pages/wishlist/Wishlist";
 import Checkout from "../pages/checkout/Checkout";
-
+import ScrollToTop from "../components/comon/ScrollToTop/ScrollToTop";
 function AppRoutes() {
   return (
     <>
+      <ScrollToTop />
       <Routes>
         <Route element={<MainLayout />}>
           <Route path="/" element={<Home />} />
