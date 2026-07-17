@@ -8,6 +8,8 @@ import Wishlist from "../pages/wishlist/Wishlist";
 import Checkout from "../pages/checkout/Checkout";
 import ScrollToTop from "../components/comon/ScrollToTop/ScrollToTop";
 import Profile from "../pages/profile/Profile";
+import TrackOrder from "../pages/TrackOrder/TrackOrder";
+import Faq from "../pages/Faq/Faq";
 function AppRoutes() {
   return (
     <>
@@ -27,7 +29,11 @@ function AppRoutes() {
           <Route path="/checkout" element={<Checkout />} />
 
           <Route path="/profile" element={<Profile />} />
-          
+
+          <Route path="/trackorder" element={<TrackOrder />} />
+
+          <Route path="/faq" element={<Faq/>} />
+
         </Route>
       </Routes>
     </>

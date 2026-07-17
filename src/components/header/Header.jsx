@@ -35,11 +35,9 @@ function Header() {
       <div className="top-bar">
         <div className="container top-content">
           <div className="top-left">
-            <Link to="/">Account</Link>
-            <a href="https://shopo.quomodothemes.website/tracking-order">
-              Track Order
-            </a>
-            <a href="https://shopo.quomodothemes.website/faq">Support</a>
+            <Link to="/profile">Account</Link>
+            <Link to="/trackorder">Track order</Link>
+            <Link to="/faq">Faq</Link>
           </div>
 
           <div className="top-right" aria-label="Social media">
