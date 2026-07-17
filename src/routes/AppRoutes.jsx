@@ -7,6 +7,7 @@ import Cart from "../pages/cart/Cart";
 import Wishlist from "../pages/wishlist/Wishlist";
 import Checkout from "../pages/checkout/Checkout";
 import ScrollToTop from "../components/comon/ScrollToTop/ScrollToTop";
+import Profile from "../pages/profile/Profile";
 function AppRoutes() {
   return (
     <>
@@ -24,6 +25,9 @@ function AppRoutes() {
           <Route path="/cart" element={<Cart />} />
 
           <Route path="/checkout" element={<Checkout />} />
+
+          <Route path="/profile" element={<Profile />} />
+          
         </Route>
       </Routes>
     </>

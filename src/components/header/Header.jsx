@@ -17,9 +17,12 @@ import { useCart } from "../../context/CartContext/CartContext";
 import categoryData from "./categoryData";
 import MobileMenu from "./MobileMenu";
 import SearchBar from "./SearchBar";
+import { useWishlist } from "../../context/WishlistContext/WishlistContext";
 
 function Header() {
   const { totalItems } = useCart();
+  const { wishlistItems } = useWishlist();
+  const wishlistCount = wishlistItems.length;
   const [showCategories, setShowCategories] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -77,15 +80,16 @@ function Header() {
           <SearchBar />
 
           <div className="header-icons" aria-label="Customer actions">
-            <a
-              className="header-icon"
-              href="https://shopo.quomodothemes.website/products-compare"
-              aria-label="Compare products"
+            <Link
+              className="header-icon wishlist-icon-wrapper"
+              to="/wishlist"
+              aria-label="Wishlist"
             >
-              <FiRefreshCcw />
-            </a>
-            <Link className="header-icon" to="/wishlist" aria-label="Wishlist">
               <IoHeartOutline />
+
+              {wishlistCount > 0 && (
+                <span className="wishlist-badge">{wishlistCount}</span>
+              )}
             </Link>
             <Link
               className="header-icon cart-icon-wrapper"
@@ -97,13 +101,13 @@ function Header() {
                 <span className="cart-badge">{totalItems}</span>
               )}
             </Link>
-            <a
+            <Link
               className="header-icon"
-              href="https://shopo.quomodothemes.website/profile"
+              to="/profile"
               aria-label="Account profile"
             >
               <IoPersonOutline />
-            </a>
+            </Link>
           </div>
 
           <div className="mobile-actions">

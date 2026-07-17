@@ -9,6 +9,7 @@ import AnimatedAddToCartButton from "../../components/comon/AnimatedAddToCartBut
 import AddAllToCartButton from "../../components/comon/AddAllToCartButton/AddAllToCartButton";
 
 import { useWishlist } from "../../context/WishlistContext/WishlistContext";
+import Newsletter from "../../components/home-sections/Newsletter/Newsletter";
 
 function Wishlist() {
   const {
@@ -42,113 +43,98 @@ function Wishlist() {
   }
 
   return (
-    <section className="wishlist-page">
-      <div className="container">
-        <h1 className="wishlist-title">
-          My Wishlist
-        </h1>
+    <>
+      <section className="wishlist-page">
+        <div className="container">
+          <h1 className="wishlist-title">My Wishlist</h1>
 
-        <div className="wishlist-table-wrapper">
-          <table className="wishlist-table">
-            <thead>
-              <tr>
-                <th>Product</th>
+          <div className="wishlist-table-wrapper">
+            <table className="wishlist-table">
+              <thead>
+                <tr>
+                  <th>Product</th>
 
-                <th>Price</th>
+                  <th>Price</th>
 
-                <th>Quantity</th>
+                  <th>Quantity</th>
 
-                <th>Total</th>
+                  <th>Total</th>
 
-                <th>Add To Cart</th>
+                  <th>Add To Cart</th>
 
-                <th></th>
-              </tr>
-            </thead>
-
-            <tbody>
-              {wishlistItems.map((item) => (
-                <tr key={item.id}>
-                  <td>
-                    <div className="wishlist-product">
-                      <img
-                        src={item.thumbnail}
-                        alt={item.title}
-                      />
-
-                      <div className="wishlist-product-info">
-                        <Link to={`/product/${item.id}`}>
-                          {item.title}
-                        </Link>
-
-                        <span>{item.brand}</span>
-                      </div>
-                    </div>
-                  </td>
-
-                  <td className="wishlist-price">
-                    ${item.price}
-                  </td>
-
-                  <td>
-                    <QuantitySelector
-                      quantity={item.quantity}
-                      onIncrease={() =>
-                        increaseQuantity(item.id)
-                      }
-                      onDecrease={() =>
-                        decreaseQuantity(item.id)
-                      }
-                      showLabel={false}
-                      variant="compact"
-                    />
-                  </td>
-
-                  <td className="wishlist-total">
-                    $
-                    {(
-                      item.price * item.quantity
-                    ).toFixed(2)}
-                  </td>
-
-                  <td>
-                    <AnimatedAddToCartButton
-                      product={item}
-                      quantity={item.quantity}
-                      variant="table"
-                    />
-                  </td>
-
-                  <td>
-                    <button
-                      type="button"
-                      className="remove-btn"
-                      onClick={() =>
-                        removeFromWishlist(item.id)
-                      }
-                    >
-                      <IoClose />
-                    </button>
-                  </td>
+                  <th></th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+              </thead>
 
-        <div className="wishlist-bottom">
-          <button
-            type="button"
-            className="wishlist-clear-btn"
-            onClick={clearWishlist}
-          >
-            Clear Wishlist
-          </button>
+              <tbody>
+                {wishlistItems.map((item) => (
+                  <tr key={item.id}>
+                    <td>
+                      <div className="wishlist-product">
+                        <img src={item.thumbnail} alt={item.title} />
 
-          <AddAllToCartButton />
+                        <div className="wishlist-product-info">
+                          <Link to={`/product/${item.id}`}>{item.title}</Link>
+
+                          <span>{item.brand}</span>
+                        </div>
+                      </div>
+                    </td>
+
+                    <td className="wishlist-price">${item.price}</td>
+
+                    <td>
+                      <QuantitySelector
+                        quantity={item.quantity}
+                        onIncrease={() => increaseQuantity(item.id)}
+                        onDecrease={() => decreaseQuantity(item.id)}
+                        showLabel={false}
+                        variant="compact"
+                      />
+                    </td>
+
+                    <td className="wishlist-total">
+                      ${(item.price * item.quantity).toFixed(2)}
+                    </td>
+
+                    <td>
+                      <AnimatedAddToCartButton
+                        product={item}
+                        quantity={item.quantity}
+                        variant="table"
+                      />
+                    </td>
+
+                    <td>
+                      <button
+                        type="button"
+                        className="remove-btn"
+                        onClick={() => removeFromWishlist(item.id)}
+                      >
+                        <IoClose />
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+
+          <div className="wishlist-bottom">
+            <button
+              type="button"
+              className="wishlist-clear-btn"
+              onClick={clearWishlist}
+            >
+              Clear Wishlist
+            </button>
+
+            <AddAllToCartButton />
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+      <Newsletter />
+    </>
   );
 }
 

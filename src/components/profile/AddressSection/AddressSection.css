@@ -1,0 +1,211 @@
+.address-section {
+  display: flex;
+  flex-direction: column;
+  gap: 35px;
+}
+
+/*  Header*/
+
+.address-section .section-header h2 {
+  font-size: 30px;
+  font-weight: 700;
+  color: #222;
+  margin-bottom: 10px;
+}
+
+/*Address Grid*/
+
+.address-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 30px;
+}
+
+/*  Address Card */
+
+.address-card {
+  background: #fff;
+  border: 1px solid #ececec;
+  transition: all 0.3s ease;
+}
+
+.address-card:hover {
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.08);
+}
+
+.address-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 24px;
+  border-bottom: 1px solid #ececec;
+  background: #fafafa;
+}
+
+.address-title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.address-title svg {
+  font-size: 22px;
+  color: var(--dark-yellow);
+}
+
+.address-title h3 {
+  font-size: 18px;
+  font-weight: 600;
+  color: #222;
+}
+
+.address-card-header button {
+  border: none;
+  outline: none;
+  color: #fff;
+  padding: 8px 18px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background: #222;
+}
+
+.address-card-header button:hover {
+  background: var(--dark-yellow);
+}
+
+/* Content */
+
+.address-content {
+  padding: 24px;
+  background: #fafafa;
+
+}
+
+.address-content p {
+  margin-bottom: 12px;
+  color: #555;
+  line-height: 1.7;
+  font-size: 15px;
+  font-family: "inter", sans-serif;
+}
+
+.address-content p:last-child {
+  margin-bottom: 0;
+}
+
+.address-content strong {
+  color: #222;
+}
+
+.address-row {
+  display: grid;
+  grid-template-columns: 90px 1fr;
+  gap: 14px;
+  margin-bottom: 14px;
+}
+
+.address-label {
+  color: #777;
+  font-weight: 500;
+}
+
+.add-address-btn {
+  border: none;
+  outline: none;
+  color: #fff;
+  padding: 14px 28px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background: #222;
+  font-family: "inter", sans-serif;
+}
+
+.add-address-btn:hover {
+  background: var(--dark-yellow);
+}
+
+@media (max-width: 576px) {
+  .address-row {
+    grid-template-columns: 1fr;
+    gap: 6px;
+  }
+
+  .address-label {
+    font-weight: 600;
+  }
+
+  .add-address-btn {
+    width: 100%;
+  }
+}
+
+/* Tablet */
+
+@media (max-width: 992px) {
+  .address-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .address-section .section-header h2 {
+    font-size: 28px;
+  }
+}
+
+/* Mobile */
+
+@media (max-width: 768px) {
+  .address-section {
+    gap: 28px;
+  }
+
+  .address-section .section-header h2 {
+    font-size: 24px;
+  }
+
+  .address-section .section-header p {
+    font-size: 14px;
+  }
+
+  .address-card-header {
+    padding: 16px 20px;
+  }
+
+  .address-title h3 {
+    font-size: 16px;
+  }
+
+  .address-content {
+    padding: 20px;
+  }
+
+  .address-card-header button {
+    padding: 8px 16px;
+    font-size: 13px;
+  }
+}
+
+/* Small Mobile*/
+
+@media (max-width: 576px) {
+  .address-card-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .address-card-header button {
+    width: 100%;
+  }
+
+  .address-content p {
+    font-size: 14px;
+  }
+
+  .address-title svg {
+    font-size: 20px;
+  }
+}
