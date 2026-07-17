@@ -15,33 +15,51 @@ function Faq() {
   const faqData = [
     {
       id: 1,
-      question: "How does information technology work?",
+      question: "How can I place an order?",
       answer:
-        "Information technology combines computer hardware, software, networking, and data management to store, process, and exchange information efficiently across organizations and devices.",
+        "Browse our products, add your favorite items to the cart, proceed to checkout, enter your shipping information, and confirm your order. Once your order is placed, you'll receive a confirmation email.",
     },
     {
       id: 2,
-      question: "How can I become an IT manager?",
+      question: "What payment methods do you accept?",
       answer:
-        "There are many paths to becoming an IT manager. Build a strong technical foundation, improve leadership skills, gain industry experience, and continuously learn modern technologies and business practices.",
+        "We accept major debit and credit cards, bank transfers, and popular online payment methods. Additional payment options may be available depending on your region.",
     },
     {
       id: 3,
-      question: "What are the latest trends in IT?",
+      question: "How can I track my order?",
       answer:
-        "Artificial Intelligence, Cloud Computing, Cybersecurity, Edge Computing, DevOps, Blockchain, and Data Analytics are among today's most important technology trends.",
+        "After your order has been shipped, you'll receive a tracking number via email. You can also use the Track Order page on our website to check your order status.",
     },
     {
       id: 4,
-      question: "How long should a business plan be?",
+      question: "Can I return or exchange a product?",
       answer:
-        "A business plan should be concise while covering all important sections including executive summary, market research, financial planning, and business strategy.",
+        "Yes. If you're not satisfied with your purchase, you can request a return or exchange within our return policy period. The item must be unused and in its original condition.",
     },
     {
       id: 5,
-      question: "How does the support policy work?",
+      question: "How long does shipping take?",
       answer:
-        "Support policies typically include multiple communication channels, response time commitments, issue tracking, maintenance, and customer assistance.",
+        "Delivery times depend on your location and the shipping method selected during checkout. Most standard orders are delivered within 3–7 business days.",
+    },
+    {
+      id: 6,
+      question: "Do I need an account to place an order?",
+      answer:
+        "No. You can place an order as a guest. However, creating an account allows you to save addresses, view your order history, manage your wishlist, and enjoy a faster checkout experience.",
+    },
+    {
+      id: 7,
+      question: "How can I contact customer support?",
+      answer:
+        "You can contact our support team through the Contact page, by email, or by submitting the contact form. Our team will respond as quickly as possible during business hours.",
+    },
+    {
+      id: 8,
+      question: "Can I cancel my order after placing it?",
+      answer:
+        "Yes, orders can usually be cancelled before they are processed for shipping. Once an order has been dispatched, you'll need to follow our return procedure instead.",
     },
   ];
 
